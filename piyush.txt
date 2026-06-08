@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>PK Gamer Shooting Game</title>
+<style>
+body{
+    margin:0;
+    overflow:hidden;
+    background:black;
+}
+#player{
+    width:50px;
+    height:50px;
+    background:red;
+    position:absolute;
+    bottom:20px;
+    left:50%;
+}
+.bullet{
+    width:5px;
+    height:15px;
+    background:yellow;
+    position:absolute;
+}
+</style>
+</head>
+<body>
+
+<div id="player"></div>
+
+<script>
+let player=document.getElementById("player");
+let pos=window.innerWidth/2;
+
+document.addEventListener("keydown",function(e){
+
+ if(e.key==="ArrowLeft"){
+   pos-=20;
+ }
+
+ if(e.key==="ArrowRight"){
+   pos+=20;
+ }
+
+ if(e.key===" "){
+   shoot();
+ }
+
+ player.style.left=pos+"px";
+});
+
+function shoot(){
+ let bullet=document.createElement("div");
+ bullet.className="bullet";
+ bullet.style.left=(pos+22)+"px";
+ bullet.style.bottom="70px";
+
+ document.body.appendChild(bullet);
+
+ let move=setInterval(()=>{
+   let current=parseInt(bullet.style.bottom);
+   bullet.style.bottom=(current+10)+"px";
+
+   if(current>window.innerHeight){
+      clearInterval(move);
+      bullet.remove();
+   }
+ },20);
+}
+</script>
+
+</body>
+</html>
